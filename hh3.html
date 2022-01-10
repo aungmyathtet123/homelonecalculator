@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<form action="/action_page.php" >
+  A1<input type="text" name="a" id="a1"><br>
+  B1<input type="text" name="a" id="b1"><br>
+  A2<input type="text" name="a" id="a2"><br>
+  B2<input type="text" name="a" id="b2"><br>
+  formula<input type="text" name="a" id="formula" required><br>
+  <input type="button" value="OK" onclick="opera()">
+</form>
+    <p>
+        Resullt  : <input type="text" id="result" readonly="">
+    </p>
+    <script>
+        function opera(value) {
+        var one=parseInt(document.getElementById('a1').value);
+        var two = parseInt(document.getElementById('b1').value);
+        var three = parseInt(document.getElementById('a2').value);
+        var name=one*(two+three);
+        console.log(name);
+        var four = document.getElementById('b2').value;
+        console.log(typeof(one)+typeof(two)+typeof(three));
+        var number=[one,two,three,four];
+        var string=[];
+        var str=document.getElementById('formula').value;
+        var checkOpera=str.split('');
+        for (var i =0; i < checkOpera.length; i++) {
+            if (checkOpera[i]=="+") {
+                string=str.split(/(\+)/);
+            }else if(checkOpera[i]=="-"){
+                string=str.split(/(\-)/);
+            }
+            else if(checkOpera[i]=="*"){
+                string=str.split(/(\*)/);
+            }
+            else if(checkOpera[i]=="/"){
+                string=str.split(/(\/)/);
+            }
+        }
+        var array=["A1","B1","A2","B2"];
+        var num=["","","",""];
+        var operation=["+","-","*","/"];
+        var op="";
+        for (var j = 0; j < string.length; j++) {
+            for (var k = 0; k < array.length; k++) {
+                if (string[j]==array[k]) {
+                    num[j]=number[k];
+                }
+                else if(string[j]==operation[k]){
+                    op=string[j];
+                }
+            }
+        }
+        alert("ok");
+        document.getElementById("result").value=name;
+}
+    </script>
+</body>
+</html>

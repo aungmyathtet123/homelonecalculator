@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Home Lone Calculator</title>
+	<script type="text/javascript" src="jquery.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function (){
+			$("#calculate").click(function(){
+				// alert('ok');
+				var amount=parseInt($('#amount').val());
+				var rate =parseInt($('#rate').val());
+				var term=parseInt($('#term').val());
+				// console.log(amount);
+				var r=(rate/100)/12;
+				console.log(r);
+				var n=term*12;
+				console.log(n);
+				var monthly_amount=Math.round(amount*(r*(1+r)**n)/(((1+r)**n)-1));
+				console.log(monthly_amount);
+				// var total_interest=total_interest+mothly_interest;
+
+				var mothly_interest=Math.round(r*amount);
+				
+				console.log(mothly_interest);
+				var monthly_principle=Math.round((amount+mothly_interest)-monthly_amount);
+				console.log(monthly_principle);
+				var html1='';
+				var html2='';
+				var i="";
+				var interest=0;
+
+				
+						
+
+						html2=`<table border="1">
+									<tr>
+									<th colspan="4">Loan Payment Over${term} Years</th>
+									</tr>
+									<tr>
+									<td>Month No.</td>
+									<td>Principle</td>
+									<td>Interest</td>
+									<td>Payment</td>
+									</tr>
+									<tr>
+									<td>Month#1</td>
+									<td>${amount}</td>
+									<td>${mothly_interest}</td>
+									<td>${monthly_amount}</td>
+									</tr>`
+									
+									for(i=2;i<=n;i++){
+										var monthly_principle=(amount+mothly_interest)-monthly_amount;
+										var mothly_interest=(((monthly_principle*(rate/100))/12))
+										// mothly_interest=(mothly_interest+amount)-monthly_amount
+										interest+=parseInt(mothly_interest);
+
+										// interest=${total_interest}+${mothly_interest};
+								html2+=`<tr>
+									<td>Month#${i}</td>
+									<td>${monthly_principle}</td>
+									<td>${mothly_interest}</td>
+									<td>${monthly_amount}</td>
+									</tr>`
+									}
+									
+
+
+								`</table>`
+								html1=`<table border="1">
+							<tr>
+							<th colspan="2">Your Loan ${term}Payment</th>
+							</tr>
+							<tr>
+							<td>Monthly Amount</td>
+							<td>${monthly_amount}</td>
+							</tr>
+							<tr>
+							<td>Years Total Interes</td>
+							<td>${interest}</td>
+							</tr>
+							<tr>
+							<td>Loan Amount</td>
+							<td>${amount}</td>
+							</tr>
+							<tr>
+							<td>Interest</td>
+							<td>${rate}</td>
+							</tr>
+							<tr>
+							<td>Term</td>
+							<td>${term}</td>
+							</tr>
+						</table>`
+								console.log('t:'+interest);
+								$('#table1').html(html1);
+								$('#table2').html(html2)
+
+
+			})
+	
+		})
+	</script>
+</head>
+<body>
+	Lone Amount:<input type="number" name="amount" id="amount"><br><br>
+	Interest Rate:<input type="number" name="rate" id="rate"><br><br>
+	Term:<input type="number" name="term" id="term"><br><br>
+	<input type="button" name="button" value="Caculate" id="calculate">
+	<p id=table1></p>
+	<p id=table2></p>
+
+	
+</body>
+</html>
